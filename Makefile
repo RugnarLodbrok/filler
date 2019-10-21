@@ -17,6 +17,7 @@ SRC_MAIN = src/main.c
 SRC_REST = \
 		src/map.c \
 		src/map_read.c \
+		src/scorer.c \
 		src/piece.c
 
 OPTION = -I. -Ilibft

@@ -1,7 +1,6 @@
 #include <fcntl.h>
 #include "libft_compat.h"
 #include "libft.h"
-#include "get_next_line.h"
 #include "filler.h"
 
 int get_move_score(t_game_state *s, t_point p)

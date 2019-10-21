@@ -20,6 +20,7 @@ add_executable(ksticks.filler
 		src/map.c
 		src/map_read.c
 		src/piece.c
+		src/scorer.c
 
 		libft/src/string/ft_atoi.c
 		libft/src/string/ft_bzero.c

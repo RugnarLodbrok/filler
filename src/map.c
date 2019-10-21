@@ -17,23 +17,40 @@ void t_map_copy(t_map *dst, t_map *src)
 
 int t_map_can_place(t_map *map, t_map *piece, t_point p)
 {
-	(void)map;
-	(void)piece;
-	(void)p;
-	return (1);
+	int i;
+	int j;
+	int overlap_cnt;
+
+	overlap_cnt = 0;
+	for (i = 0; i < piece->m; ++i)
+	{
+		for (j = 0; j < piece->n; ++j)
+		{
+			if (piece->data[i][j] == CELL_EMPTY)
+				continue;
+			if (map->data[p.x + i][p.y + j] == CELL_O)
+				return (0);
+			else if (overlap_cnt++)
+				return (0);
+		}
+	}
+	return (overlap_cnt == 1);
 }
 
 void t_map_place(t_map *map, t_map *piece, t_point p)
 {
-	(void)map;
-	(void)piece;
-	(void)p;
-}
+	int i;
+	int j;
 
-int t_map_score(t_map *m)
-{
-	(void)m;
-	return (0);
+	for (i = 0; i < piece->m; ++i)
+	{
+		for (j = 0; j < piece->n; ++j)
+		{
+			if (piece->data[i][j] == CELL_EMPTY)
+				continue;
+			map->data[p.x + i][p.y + j] = CELL_X;
+		}
+	}
 }
 
 void t_map_del(t_map *m)
