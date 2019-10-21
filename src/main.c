@@ -10,7 +10,7 @@ int get_move_score(t_game_state *s, t_point p)
 	int score;
 
 	if (!t_map_can_place(&s->map, &s->piece, p))
-		return (-1);
+		return (INT_MIN);
 	t_map_copy(&map2, &s->map);
 	t_map_place(&map2, &s->piece, p);
 	score = t_map_score(&map2);
@@ -42,7 +42,8 @@ void make_move(int fd)
 		}
 
 	}
-	ft_printf("%d %d\n", best_p.x, best_p.y);
+	ft_printf("%d %d\n", best_p.x - s.piece.offset.x,
+			  best_p.y - s.piece.offset.y);
 }
 
 int main(int ac, char **av)
@@ -50,12 +51,12 @@ int main(int ac, char **av)
 	int fd;
 
 	if (ac == 1)
-	{
 		make_move(0);
-		return (0);
+	else
+	{
+		fd = open(av[1], O_RDONLY);
+		make_move(fd);
+		close(fd);
 	}
-	fd = open(av[1], O_RDONLY);
-	make_move(fd);
-	close(fd);
 	return (0);
 }

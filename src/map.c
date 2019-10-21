@@ -6,6 +6,7 @@ void t_map_copy(t_map *dst, t_map *src)
 
 	dst->m = src->m;
 	dst->n = src->n;
+	ft_bzero(&dst->offset, sizeof(t_point));
 	dst->data = malloc(sizeof(char *) * (dst->m + 1));
 	i = 0;
 	while (i < dst->m)
@@ -27,6 +28,8 @@ int t_map_can_place(t_map *map, t_map *piece, t_point p)
 		for (j = 0; j < piece->n; ++j)
 		{
 			if (piece->data[i][j] == CELL_EMPTY)
+				continue;
+			if (map->data[p.x + i][p.y + j] == CELL_EMPTY)
 				continue;
 			if (map->data[p.x + i][p.y + j] == CELL_O)
 				return (0);
@@ -63,4 +66,5 @@ void t_map_del(t_map *m)
 		free(m->data[i] - m->offset.y);
 		i++;
 	}
+	free(m->data - m->offset.x);
 }

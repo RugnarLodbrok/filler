@@ -525,7 +525,9 @@ if __FILE__ == $0
 					if (init.verbose > 0 && init.interactif == 0)
 						map.show_piececontent($stdout)
 					end
-                                  rescue
+                                  rescue => exception
+                                    puts "EXCEPTION!"
+                                    puts exception.backtrace
                                     player.end_player(trace)
                                   end
 					begin
