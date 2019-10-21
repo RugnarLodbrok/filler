@@ -14,7 +14,8 @@ CC = gcc
 NAME = ksticks.filler
 FLAGS = -Wall -Wextra -Werror
 SRC = \
-		src/main.c
+		src/main.c \
+		src/map.c
 
 OPTION = -I. -Ilibft
 OBJ = $(SRC:.c=.o)
@@ -41,6 +42,5 @@ clean :
 fclean : clean
 	rm -f $(NAME)
 	make -C libft/ fclean
-	make -C minilibx_macos/ clean
 
 re : fclean all
