@@ -47,6 +47,7 @@ t_map t_map_read(int fd, char *name, int skip_margin)
 		if (get_next_line(fd, m.data + i) <= 0)
 			ft_error_exit("error during reading map data");
 		m.data[i] += 4; //todo: after this we can't free this ptr anymore
+		ft_toupper_inplace(m.data[i]);
 		i++;
 	}
 	return m;
@@ -89,6 +90,27 @@ void t_map_del(t_map *m)
 	while (i < m->n)
 	{
 		free(m->data[i]);
+		i++;
+	}
+}
+
+void t_map_flip_xo(t_map *m)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < m->m)
+	{
+		j = 0;
+		while (j < m->n)
+		{
+			if (m->data[i][j] == CELL_O)
+				m->data[i][j] = CELL_X;
+			else if (m->data[i][j] == CELL_X)
+				m->data[i][j] = CELL_O;
+			j++;
+		}
 		i++;
 	}
 }

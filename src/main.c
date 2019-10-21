@@ -26,9 +26,9 @@ char read_turn(int fd)
 	if (get_next_line(fd, &s) <= 0)
 		ft_error_exit("read error");
 	if (ft_startswith(s, "$$$ exec p1"))
-		r = 'o';
+		r = CELL_O;
 	else if (ft_startswith(s, "$$$ exec p2"))
-		r = 'x';
+		r = CELL_X;
 	else
 		ft_error_exit("bad first line: `%s`", s);
 	free(s);
@@ -38,9 +38,12 @@ char read_turn(int fd)
 t_game_state read_game_state(int fd)
 {
 	t_game_state s;
+
 	s.turn = read_turn(fd);
 	s.map = t_map_read(fd, "Plateau", 1);
 	s.piece = t_map_read(fd, "Piece", 0);
+	if (s.turn == CELL_O)
+		t_map_flip_xo(&s.map);
 	return s;
 }
 
