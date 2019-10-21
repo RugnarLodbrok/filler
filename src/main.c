@@ -9,9 +9,10 @@ int get_move_score(t_game_state *s, t_point p)
 	t_map map2;
 	int score;
 
-	t_map_copy(&map2, &s->map);
-	if (!t_map_can_place(&map2, &s->piece, p))
+	if (!t_map_can_place(&s->map, &s->piece, p))
 		return (-1);
+	t_map_copy(&map2, &s->map);
+	t_map_place(&map2, &s->piece, p);
 	score = t_map_score(&map2);
 	t_map_del(&map2);
 	return (score);

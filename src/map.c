@@ -76,6 +76,13 @@ int t_map_can_place(t_map *map, t_map *piece, t_point p)
 	return (1);
 }
 
+void t_map_place(t_map *map, t_map *piece, t_point p)
+{
+	(void)map;
+	(void)piece;
+	(void)p;
+}
+
 int t_map_score(t_map *m)
 {
 	(void)m;
@@ -87,7 +94,7 @@ void t_map_del(t_map *m)
 	int i;
 
 	i = 0;
-	while (i < m->n)
+	while (m->data[i])
 	{
 		free(m->data[i]);
 		i++;
