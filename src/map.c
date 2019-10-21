@@ -41,12 +41,15 @@ t_map t_map_read(int fd, char *name, int skip_margin)
 		ft_error_exit("memory error");
 	m.data[m.m] = 0;
 	if (skip_margin)
+	{
+		m.offset.y = 4;
 		get_next_line(fd, m.data);
+	}
 	while (i < m.m)
 	{
 		if (get_next_line(fd, m.data + i) <= 0)
 			ft_error_exit("error during reading map data");
-		m.data[i] += 4; //todo: after this we can't free this ptr anymore
+		m.data[i] += m.offset.y;
 		ft_toupper_inplace(m.data[i]);
 		i++;
 	}
@@ -93,10 +96,10 @@ void t_map_del(t_map *m)
 {
 	int i;
 
-	i = 0;
+	i = -m->offset.x;
 	while (m->data[i])
 	{
-		free(m->data[i]);
+		free(m->data[i] - m->offset.y);
 		i++;
 	}
 }

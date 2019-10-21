@@ -15,8 +15,10 @@ include_directories(libft)
 
 #add_library(libft.a
 add_executable(ksticks.filler
+#		tests/tests.c
 		src/main.c
 		src/map.c
+		src/piece.c
 
 		libft/src/string/ft_atoi.c
 		libft/src/string/ft_bzero.c

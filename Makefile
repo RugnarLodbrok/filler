@@ -13,17 +13,26 @@
 CC = gcc
 NAME = ksticks.filler
 FLAGS = -Wall -Wextra -Werror
-SRC = \
-		src/main.c \
-		src/map.c
+SRC_MAIN = src/main.c
+SRC_REST = \
+		src/map.c \
+		src/piece.c
 
 OPTION = -I. -Ilibft
-OBJ = $(SRC:.c=.o)
+OBJ_MAIN = $(SRC_MAIN:.c=.o)
+OBJ_REST = $(SRC_REST:.c=.o)
+OBJ = $(OBJ_MAIN) $(OBJ_REST)
+
 
 all : $(NAME)
 
 $(NAME) : libft/libft.a $(OBJ)
 	$(CC) -o $(NAME) $(OBJ) $(OPTION) -L libft/ -lft
+
+test : libft/libft.a $(OBJ_REST)
+	gcc -c tests/tests.c -o tests/tests.o $(OPTION)
+	$(CC) -o filler_test.out $(OBJ_REST) tests/tests.o $(OPTION) -L libft/ -lft
+	./filler_test.out
 
 %.o: %.c
 	@echo compile $(<) "->" $(<:.c=.o)

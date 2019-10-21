@@ -43,6 +43,7 @@ t_game_state read_game_state(int fd)
 	s.turn = read_turn(fd);
 	s.map = t_map_read(fd, "Plateau", 1);
 	s.piece = t_map_read(fd, "Piece", 0);
+	t_map_trim(&s.piece);
 	if (s.turn == CELL_O)
 		t_map_flip_xo(&s.map);
 	return s;
