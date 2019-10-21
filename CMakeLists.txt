@@ -71,6 +71,7 @@ add_executable(ksticks.filler
 		libft/src/string/ft_tolower.c
 		libft/src/string/ft_toupper.c
 		libft/src/string/ft_strrev.c
+		libft/src/string/ft_startswith.c
 
 		libft/src/format/ft_itoa.c
 		libft/src/format/ft_ultoa.c
