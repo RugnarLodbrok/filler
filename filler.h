@@ -23,13 +23,12 @@ typedef struct
 	t_map piece;
 } t_game_state;
 
-t_map t_map_read(int fd, char *name, int skip_margin);
+t_game_state read_game_state(int fd);
 int t_map_can_place(t_map *map, t_map *piece, t_point p);
 void t_map_place(t_map *map, t_map *piece, t_point p);
 void t_map_copy(t_map *dst, t_map *src);
 void t_map_del(t_map *m);
 int t_map_score(t_map *m);
-void t_map_flip_xo(t_map *m);
 void t_map_trim(t_map *piece);
 
 #endif

@@ -18,37 +18,6 @@ int get_move_score(t_game_state *s, t_point p)
 	return (score);
 }
 
-char read_turn(int fd)
-{
-	char *s;
-	char r;
-
-	r = 0;
-	if (get_next_line(fd, &s) <= 0)
-		ft_error_exit("read error");
-	if (ft_startswith(s, "$$$ exec p1"))
-		r = CELL_O;
-	else if (ft_startswith(s, "$$$ exec p2"))
-		r = CELL_X;
-	else
-		ft_error_exit("bad first line: `%s`", s);
-	free(s);
-	return (r);
-}
-
-t_game_state read_game_state(int fd)
-{
-	t_game_state s;
-
-	s.turn = read_turn(fd);
-	s.map = t_map_read(fd, "Plateau", 1);
-	s.piece = t_map_read(fd, "Piece", 0);
-	t_map_trim(&s.piece);
-	if (s.turn == CELL_O)
-		t_map_flip_xo(&s.map);
-	return s;
-}
-
 void make_move(int fd)
 {
 	t_game_state s;

@@ -18,6 +18,7 @@ add_executable(ksticks.filler
 #		tests/tests.c
 		src/main.c
 		src/map.c
+		src/map_read.c
 		src/piece.c
 
 		libft/src/string/ft_atoi.c
