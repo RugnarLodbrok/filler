@@ -1,6 +1,11 @@
+#include <fcntl.h>
+#include "libft_compat.h"
 #include "filler.h"
 
-void t_piece_print(t_map *p)
+int t_map_expand(t_map *m, char c);
+t_map t_map_read(int fd, char *name, int skip_margin);
+
+void t_map_print(t_map *p)
 {
 	int i;
 	int j;
@@ -13,9 +18,10 @@ void t_piece_print(t_map *p)
 		}
 		write(1, "\n", 1);
 	}
+	write(1, "\n", 1);
 }
 
-int main()
+int test_piece_trim()
 {
 	t_map piece;
 
@@ -29,8 +35,33 @@ int main()
 	piece.data[3] = ft_strdup("..***..");
 	piece.data[4] = ft_strdup(".......");
 	piece.data[5] = 0;
-	t_piece_print(&piece);
+	t_map_print(&piece);
 	t_map_trim(&piece);
-	t_piece_print(&piece);
+	t_map_print(&piece);
 	t_map_del(&piece);
+}
+
+int test_expand()
+{
+	t_map m;
+	int fd;
+
+	fd = open("resources/maps/map00_1", O_RDONLY);
+	m = t_map_read(fd, "Plateau", 0);
+	close(fd);
+	while (1)
+	{
+		t_map_print(&m);
+		if (!t_map_expand(&m, CELL_O))
+			break;
+		if (!t_map_expand(&m, CELL_X))
+			break;
+	}
+	t_map_print(&m);
+}
+
+int main()
+{
+	test_piece_trim();
+	test_expand();
 }

@@ -1,4 +1,5 @@
 #include <fcntl.h>
+#include <limits.h>
 #include "libft_compat.h"
 #include "libft.h"
 #include "filler.h"
@@ -26,7 +27,7 @@ void make_move(int fd)
 	t_point best_p;
 
 	s = read_game_state(fd);
-	max_score = -1;
+	max_score = INT_MIN;
 	ft_bzero(&p, sizeof(p));
 	for (p.x = 0; p.x < s.map.m - s.piece.m + 1; ++p.x)
 	{

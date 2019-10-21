@@ -65,7 +65,7 @@ static t_point read_filler_map_header(int fd, const char *name)
 	return (r);
 }
 
-static t_map t_map_read(int fd, char *name, int skip_margin)
+t_map t_map_read(int fd, char *name, int skip_margin)
 {
 	t_map m;
 	t_point size;
