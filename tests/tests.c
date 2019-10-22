@@ -1,6 +1,7 @@
 #include <fcntl.h>
 #include "libft_compat.h"
 #include "filler.h"
+#include "get_next_line.h"
 
 int t_map_expand(t_map *m, char c);
 t_map t_map_read(int fd, char *name, int skip_margin);

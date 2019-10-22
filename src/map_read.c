@@ -23,33 +23,18 @@ static void t_map_flip_xo(t_map *m)
 	}
 }
 
-static char read_turn(int fd)
-{
-	char *s;
-	char r;
-
-	r = 0;
-	if (get_next_line(fd, &s) <= 0)
-		ft_error_exit("read error");
-	if (ft_startswith(s, "$$$ exec p1"))
-		r = CELL_O;
-	else if (ft_startswith(s, "$$$ exec p2"))
-		r = CELL_X;
-	else
-		ft_error_exit("bad first line: `%s`", s);
-	free(s);
-	return (r);
-}
-
 static t_point read_filler_map_header(int fd, const char *name)
 {
 	char *s;
 	char **words;
 	char **ptr;
 	t_point r;
+	int status;
 
-	if (get_next_line(fd, &s) <= 0)
+	if ((status = get_next_line(fd, &s)) < 0)
 		ft_error_exit("error");
+	if (!status || !ft_strlen(s))
+		return (t_point){-1, -1};
 	words = ft_strsplit(s, ' ');
 	if (ft_strcmp(words[0], name))
 		ft_error_exit("error; got `%s` expected %s at the 1st place", s, name);
@@ -75,6 +60,8 @@ t_map t_map_read(int fd, char *name, int skip_margin)
 	size = read_filler_map_header(fd, name);
 	m.m = size.x;
 	m.n = size.y;
+	if (m.m < 0)
+		return (m);
 	i = 0;
 	if (!(m.data = malloc(sizeof(char *) * (m.m + 1))))
 		ft_error_exit("memory error");
@@ -95,15 +82,15 @@ t_map t_map_read(int fd, char *name, int skip_margin)
 	return m;
 }
 
-t_game_state read_game_state(int fd)
+int read_game_state(int fd, t_game_state *s)
 {
-	t_game_state s;
-
-	s.turn = read_turn(fd);
-	s.map = t_map_read(fd, "Plateau", 1);
-	s.piece = t_map_read(fd, "Piece", 0);
-	t_map_trim(&s.piece);
-	if (s.turn == CELL_O)
-		t_map_flip_xo(&s.map);
-	return s;
+	ft_fprintf(2, "read move...\n");
+	s->map = t_map_read(fd, "Plateau", 1);
+	if (s->map.m < 0)
+		return (0);
+	s->piece = t_map_read(fd, "Piece", 0);
+	t_map_trim(&s->piece);
+	if (s->turn == CELL_O)
+		t_map_flip_xo(&s->map);
+	return (1);
 }

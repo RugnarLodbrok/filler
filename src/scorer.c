@@ -74,9 +74,17 @@ int t_map_score(t_map *m)
 	while (1)
 	{
 		if (!t_map_expand(m, CELL_O))
+		{
+			while (t_map_expand(m, CELL_X))
+				;
 			break;
+		}
 		if (!t_map_expand(m, CELL_X))
+		{
+			while (t_map_expand(m, CELL_O))
+				;
 			break;
+		}
 	}
 	return (t_map_cnt(m, CELL_X) - t_map_cnt(m, CELL_O));
 }
