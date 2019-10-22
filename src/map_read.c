@@ -84,7 +84,6 @@ t_map t_map_read(int fd, char *name, int skip_margin)
 
 int read_game_state(int fd, t_game_state *s)
 {
-	ft_fprintf(2, "read move...\n");
 	s->map = t_map_read(fd, "Plateau", 1);
 	if (s->map.m < 0)
 		return (0);

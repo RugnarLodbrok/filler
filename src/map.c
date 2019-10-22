@@ -8,6 +8,7 @@ void t_map_copy(t_map *dst, t_map *src)
 	dst->n = src->n;
 	ft_bzero(&dst->offset, sizeof(t_point));
 	dst->data = malloc(sizeof(char *) * (dst->m + 1));
+	dst->data[dst->m] = 0;
 	i = 0;
 	while (i < dst->m)
 	{

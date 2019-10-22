@@ -15,9 +15,7 @@ int get_move_score(t_game_state *s, t_point p)
 	t_map_copy(&map2, &s->map);
 	t_map_place(&map2, &s->piece, p);
 	score = t_map_score(&map2);
-	ft_fprintf(2, "before del; p: %d %d, mn: %d %d\n", p.x, p.y, map2.m, map2.n);
 	t_map_del(&map2);
-	ft_fprintf(2, "after del\n");
 	return (score);
 }
 
@@ -46,7 +44,6 @@ void make_move(t_game_state *s)
 	t_point p;
 	t_point best_p;
 
-	ft_fprintf(2, "MOVE %c\n", s->turn);
 	ft_bzero(&best_p, sizeof(t_point));
 	max_score = INT_MIN;
 	ft_bzero(&p, sizeof(p));
