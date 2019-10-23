@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ksticks <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/23 16:29:33 by ksticks           #+#    #+#             */
+/*   Updated: 2019/10/23 16:29:35 by ksticks          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "filler.h"
 
-void t_map_copy(t_map *dst, t_map *src)
+void	t_map_copy(t_map *dst, t_map *src)
 {
 	int i;
 
@@ -17,16 +29,18 @@ void t_map_copy(t_map *dst, t_map *src)
 	}
 }
 
-int t_map_can_place(t_map *map, t_map *piece, t_point p)
+int		t_map_can_place(t_map *map, t_map *piece, t_point p)
 {
 	int i;
 	int j;
 	int overlap_cnt;
 
 	overlap_cnt = 0;
-	for (i = 0; i < piece->m; ++i)
+	i = -1;
+	while (++i < piece->m)
 	{
-		for (j = 0; j < piece->n; ++j)
+		j = -1;
+		while (++j < piece->n)
 		{
 			if (piece->data[i][j] == CELL_EMPTY)
 				continue;
@@ -41,14 +55,16 @@ int t_map_can_place(t_map *map, t_map *piece, t_point p)
 	return (overlap_cnt == 1);
 }
 
-void t_map_place(t_map *map, t_map *piece, t_point p)
+void	t_map_place(t_map *map, t_map *piece, t_point p)
 {
 	int i;
 	int j;
 
-	for (i = 0; i < piece->m; ++i)
+	i = -1;
+	while (++i < piece->m)
 	{
-		for (j = 0; j < piece->n; ++j)
+		j = -1;
+		while (++j < piece->n)
 		{
 			if (piece->data[i][j] == CELL_EMPTY)
 				continue;
@@ -57,7 +73,7 @@ void t_map_place(t_map *map, t_map *piece, t_point p)
 	}
 }
 
-void t_map_del(t_map *m)
+void	t_map_del(t_map *m)
 {
 	int i;
 

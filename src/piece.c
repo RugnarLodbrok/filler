@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   piece.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ksticks <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/23 16:58:34 by ksticks           #+#    #+#             */
+/*   Updated: 2019/10/23 16:58:35 by ksticks          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "filler.h"
 
-static int row_empty(char *row)
+static int	row_empty(char *row)
 {
 	while (*row)
 		if (*row++ != CELL_EMPTY)
@@ -8,7 +20,7 @@ static int row_empty(char *row)
 	return (1);
 }
 
-static int col_empty(char **col, int j)
+static int	col_empty(char **col, int j)
 {
 	while (*col)
 		if (*(*col++ + j) != CELL_EMPTY)
@@ -16,7 +28,7 @@ static int col_empty(char **col, int j)
 	return (1);
 }
 
-void t_map_trim(t_map *piece)
+void		t_map_trim(t_map *piece)
 {
 	int i;
 

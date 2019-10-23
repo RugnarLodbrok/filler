@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ksticks <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/23 16:26:31 by ksticks           #+#    #+#             */
+/*   Updated: 2019/10/23 16:26:34 by ksticks          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <fcntl.h>
 #include <limits.h>
 #include "libft_compat.h"
@@ -5,10 +17,10 @@
 #include "get_next_line.h"
 #include "filler.h"
 
-int get_move_score(t_game_state *s, t_point p)
+static int	get_move_score(t_game_state *s, t_point p)
 {
-	t_map map2;
-	int score;
+	int		score;
+	t_map	map2;
 
 	if (!t_map_can_place(&s->map, &s->piece, p))
 		return (INT_MIN);
@@ -19,7 +31,7 @@ int get_move_score(t_game_state *s, t_point p)
 	return (score);
 }
 
-static char read_turn(int fd)
+static char	read_turn(int fd)
 {
 	char *s;
 	char r;
@@ -37,19 +49,21 @@ static char read_turn(int fd)
 	return (r);
 }
 
-void make_move(t_game_state *s)
+static void	make_move(t_game_state *s)
 {
-	int max_score;
-	int score;
-	t_point p;
-	t_point best_p;
+	int		max_score;
+	int		score;
+	t_point	p;
+	t_point	best_p;
 
 	ft_bzero(&best_p, sizeof(t_point));
 	max_score = INT_MIN;
 	ft_bzero(&p, sizeof(p));
-	for (p.x = 0; p.x < s->map.m - s->piece.m + 1; ++p.x)
+	p.x = -1;
+	while (++p.x < s->map.m - s->piece.m + 1)
 	{
-		for (p.y = 0; p.y < s->map.n - s->piece.n + 1; ++p.y)
+		p.y = -1;
+		while (++p.y < s->map.n - s->piece.n + 1)
 		{
 			score = get_move_score(s, p);
 			if (score > max_score)
@@ -58,16 +72,16 @@ void make_move(t_game_state *s)
 				best_p = p;
 			}
 		}
-
 	}
-	ft_printf("%d %d\n", best_p.x - s->piece.offset.x,
-			  best_p.y - s->piece.offset.y);
+	ft_printf("%d %d\n",
+			best_p.x - s->piece.offset.x,
+			best_p.y - s->piece.offset.y);
 }
 
-int main(int ac, char **av)
+int			main(int ac, char **av)
 {
-	int fd;
-	t_game_state s;
+	int				fd;
+	t_game_state	s;
 
 	if (ac == 1)
 	{

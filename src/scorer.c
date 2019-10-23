@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   scorer.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ksticks <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/23 17:00:39 by ksticks           #+#    #+#             */
+/*   Updated: 2019/10/23 17:00:41 by ksticks          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 #include "filler.h"
 
-int t_map_cnt(t_map *m, char c)
+static int	t_map_cnt(t_map *m, char c)
 {
 	int i;
 	int j;
@@ -19,7 +31,7 @@ int t_map_cnt(t_map *m, char c)
 	return (r);
 }
 
-void check_neighbours(const t_map *m, char c, int i, int j)
+static void	check_neighbours(const t_map *m, char c, int i, int j)
 {
 	char *datum;
 	char cc;
@@ -39,12 +51,12 @@ void check_neighbours(const t_map *m, char c, int i, int j)
 	}
 }
 
-int t_map_expand(t_map *m, char c)
+static int	t_map_expand(t_map *m, char c)
 {
-	int i;
-	int j;
-	char cc;
-	int cnt;
+	int		i;
+	int		j;
+	char	cc;
+	int		cnt;
 
 	cc = (char)ft_tolower(c);
 	i = -1;
@@ -68,22 +80,21 @@ int t_map_expand(t_map *m, char c)
 	return (cnt);
 }
 
-int t_map_score(t_map *m)
+int			t_map_score(t_map *m)
 {
-	(void)m;
 	while (1)
 	{
 		if (!t_map_expand(m, CELL_O))
 		{
 			while (t_map_expand(m, CELL_X))
 				;
-			break;
+			break ;
 		}
 		if (!t_map_expand(m, CELL_X))
 		{
 			while (t_map_expand(m, CELL_O))
 				;
-			break;
+			break ;
 		}
 	}
 	return (t_map_cnt(m, CELL_X) - t_map_cnt(m, CELL_O));
